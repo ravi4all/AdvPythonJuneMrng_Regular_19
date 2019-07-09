@@ -39,7 +39,7 @@ class Ball():
 
 ballList = []
 
-for i in range(20):
+for i in range(5):
     ball = Ball()
     ballList.append(ball)
 
