@@ -16,11 +16,21 @@ class User():
 # users = []
 
 def register(name, email, pwd):
-    user = User(name, email, pwd)
-    # users.append(user)
-    query = "insert into users values (%s, %s, %s)"
-    cursor.execute(query, (user.name, user.email, user.pwd))
-    return user
+    try:
+        user = User(name, email, pwd)
+        # users.append(user)
+        query = "insert into users values (%s, %s, %s)"
+        cursor.execute(query, (user.name, user.email, user.pwd))
+        return user
+    except pymysql.IntegrityError:
+        return "Email ID Already Exist"
 
-def login():
-    pass
+def login(email,pwd):
+    query = "select * from users where email=%s and pwd = %s"
+    cursor.execute(query, (email, pwd))
+    # data_length = cursor.rowcount
+    data = cursor.fetchall()
+    if len(data) < 1:
+        return "User donot exist"
+    else:
+        return data

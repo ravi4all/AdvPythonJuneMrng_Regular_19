@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Registration Form</h1>
+
+<!--method - get and post-->
+<form action="cgi-bin/register.py" method="post">
+    <table>
+        <tr>
+            <td>Enter Name</td>
+            <td>
+                <input type="text" placeholder="Enter Name" name="name">
+            </td>
+        </tr>
+        <tr>
+            <td>Enter Email</td>
+            <td>
+                <input type="email" placeholder="Enter Email" name="email">
+            </td>
+        </tr>
+        <tr>
+            <td>Enter Password</td>
+            <td>
+                <input type="password" placeholder="Enter Password" name="pwd">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="reset">
+            </td>
+            <td>
+                <input type="submit" value="Register">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+</body>
+</html>
