@@ -1,4 +1,5 @@
 import pymysql
+import os
 connection = pymysql.connect(host='localhost',port=3306,user='root',
                              database='socialNetwork',autocommit=True)
 
@@ -27,12 +28,20 @@ def register(name, email, pwd, city, gender):
     except pymysql.IntegrityError:
         return "Email ID Already Exist"
 
-def login(email,pwd):
+def loginUser(email,pwd):
     query = "select * from users where email=%s and pwd = %s"
     cursor.execute(query, (email, pwd))
     # data_length = cursor.rowcount
     data = cursor.fetchall()
     if len(data) < 1:
-        return "User donot exist"
+        return "User do not exist"
     else:
         return data
+
+def editProfile(mobile,dob,occupation,interest,pic):
+    if pic.filename:
+        # print("Image is",image)
+        # print("Filename is",image.filename)
+        fn = os.path.basename(pic.filename)
+        open("profile_pic/" + fn, 'wb').write(pic.file.read())
+        print("Image Saved Successfully...")
