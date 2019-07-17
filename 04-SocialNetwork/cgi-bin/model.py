@@ -38,10 +38,17 @@ def loginUser(email,pwd):
     else:
         return data
 
-def editProfile(mobile,dob,occupation,interest,pic):
+def editProfile(mobile,dob,occupation,interest,pic,email):
     if pic.filename:
         # print("Image is",image)
         # print("Filename is",image.filename)
         fn = os.path.basename(pic.filename)
         open("profile_pic/" + fn, 'wb').write(pic.file.read())
-        print("Image Saved Successfully...")
+    query = "insert into profile values (%s,%s,%s,%s,%s,%s)"
+    cursor.execute(query, (mobile,dob,occupation,interest,pic.filename,email))
+
+def profile(email):
+    query = "select * from profile where email = %s"
+    cursor.execute(query, (email))
+    data = cursor.fetchall()
+    return data

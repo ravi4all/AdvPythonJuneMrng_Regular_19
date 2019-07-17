@@ -3,14 +3,9 @@ import model
 import base
 
 form = cgi.FieldStorage()
-mobile = form.getvalue("m_num")
-dob = form.getvalue("dob")
-occupation = form.getvalue("occupation")
-interest = form.getvalue("interest")
-# pic = form.getvalue("pic")
-pic = form['pic']
-email = form.getvalue('email')
-model.editProfile(mobile,dob,occupation,interest,pic,email)
+email = form.getvalue("email")
+
+data = model.profile(email)
 
 print("""
     <!doctype html>
@@ -31,5 +26,29 @@ print("""
     <body>
     """)
 
-base.header()
+base.header(email)
 
+print("<div class='container'>")
+print("""<h2>Edit Profile </h2>
+<hr>
+""")
+
+print("""
+<div class="row">
+    <div class="col-md-4">
+        <img src='../profile_pic/{}' class='w-100' alt="profile_pic">
+    </div>
+    <div class="col-md-8">
+        <h3>Email : {}</h3>
+        <h3>DOB : {}</h3>
+        <h3>Interest : {}</h3>
+        <h3>Occupation : {}</h3>
+    </div>
+</div>
+""".format(data[0][-2], data[0][-1], data[0][1],data[0][3],data[0][2]))
+
+print("</div>")
+print("""
+</body>
+</html>
+""")

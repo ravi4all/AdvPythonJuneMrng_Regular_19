@@ -1,6 +1,6 @@
 import cgi
 import model
-import home
+# import home
 
 form = cgi.FieldStorage()
 
@@ -12,4 +12,5 @@ gender = form.getvalue('gender')
 
 user = model.register(name, email, pwd, city, gender)
 
-home.homePage()
+import editProfile
+# home.homePage()

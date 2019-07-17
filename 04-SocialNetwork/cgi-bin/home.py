@@ -20,7 +20,7 @@ def homePage(data):
     <body>
     """)
 
-    base.header()
+    base.header(data[0][1])
 
     print("<div class='container'>")
 

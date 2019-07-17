@@ -1,5 +1,5 @@
-def header():
-    print("""
+def header(email):
+    print(f"""
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     
   <a class="navbar-brand" href="#">
@@ -15,7 +15,7 @@ def header():
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="showProfile.py?email={email}">Profile</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +29,7 @@ def header():
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="editProfile.py" tabindex="-1" aria-disabled="true">Edit Profile</a>
+        <a class="nav-link" href="editProfile.py?email={email}" tabindex="-1" aria-disabled="true">Edit Profile</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

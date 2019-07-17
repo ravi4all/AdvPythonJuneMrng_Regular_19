@@ -1,4 +1,8 @@
 import base
+import cgi
+
+form = cgi.FieldStorage()
+email = form.getvalue("email")
 
 print("""
     <!doctype html>
@@ -19,13 +23,14 @@ print("""
     <body>
     """)
 
-base.header()
+base.header(email)
 
 print("<div class='container'>")
 print("""<h2>Edit Profile </h2>
 <hr>
 
 <form action="profileController.py" method="post" enctype='multipart/form-data'>
+<input type="hidden" value={} name="email">
   <div class="form-group">
     <label for="m_no">Enter Mobile No</label>
     <input type="text" class="form-control" id="m_no" name="m_num" placeholder="Enter Mobile No">
@@ -62,7 +67,7 @@ print("""<h2>Edit Profile </h2>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-""")
+""".format(email))
 
 print("</div>")
 print("""
