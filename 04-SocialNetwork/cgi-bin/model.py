@@ -43,7 +43,11 @@ def editProfile(mobile,dob,occupation,interest,pic,email):
         # print("Image is",image)
         # print("Filename is",image.filename)
         fn = os.path.basename(pic.filename)
-        open("profile_pic/" + fn, 'wb').write(pic.file.read())
+        # open("profile_pic/" + fn, 'wb').write(pic.file.read())
+        image = pic.file.read()
+        file = open('profile_pic/'+fn,'wb')
+        file.write(image)
+        file.close()
     query = "insert into profile values (%s,%s,%s,%s,%s,%s)"
     cursor.execute(query, (mobile,dob,occupation,interest,pic.filename,email))
 
@@ -52,3 +56,13 @@ def profile(email):
     cursor.execute(query, (email))
     data = cursor.fetchall()
     return data
+
+def emailValidation(email):
+    query = "select * from users where email = %s"
+    cursor.execute(query, (email))
+    num = cursor.rowcount
+    if num == 0:
+        return "Valid"
+    else:
+        return "EmailId Already Exist"
+    

@@ -34,8 +34,8 @@
                         <hr>
                         <form action="cgi-bin/loginController.py" method="post">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" name="login_email" id="exampleInputEmail1" placeholder="Enter email">
+                                <label for="email_1">Email address</label>
+                                <input type="email" class="form-control" name="login_email" id="email_1" placeholder="Enter email">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
@@ -53,8 +53,9 @@
                                 <input type="text" class="form-control" name="reg_name" id="exampleInputName" placeholder="Enter Name">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail2">Email address</label>
-                                <input type="email" class="form-control" name="reg_email" id="exampleInputEmail2" placeholder="Enter email">
+                                <label for="email_2">Email address</label>
+                                <input type="email" class="form-control" name="reg_email" id="email_2" placeholder="Enter email">
+                                <span class='d-block' id="msg"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword2">Password</label>
@@ -112,6 +113,24 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log("Jquery Loaded...");
+            $("#email_2").change(function() {
+                // console.log("Id changed...");
+                var value = $(this).val();
+                $.ajax({
+                    "url": 'http://localhost:9090/cgi-bin/emailValidation.py?email=' + value,
+                    "success": function(data) {
+                        $("#msg").html(data);
+                    }
+                })
+            })
+        })
+    </script>
+
 </body>
 
 </html>
