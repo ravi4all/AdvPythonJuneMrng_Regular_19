@@ -1,15 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'calc_2.ui'
-#
-# Created by: PyQt5 UI code generator 5.12
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
-class Ui_MainWindow(object):
+class Ui_MainWindow(QtWidgets.QMainWindow):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(911, 705)
@@ -164,6 +155,53 @@ class Ui_MainWindow(object):
 
         self.lineEdit.setReadOnly(True)
 
+        self.btns = [self.pushButton,self.pushButton_2,self.pushButton_3,
+                     self.pushButton_4, self.pushButton_5, self.pushButton_6,
+                     self.pushButton_7, self.pushButton_8, self.pushButton_9,
+                     self.pushButton_12]
+        self.oprs = [self.pushButton_13,self.pushButton_14,
+                     self.pushButton_15,self.pushButton_16]
+        self.pushButton_17.clicked.connect(self.evaluate)
+        for i in range(len(self.btns)):
+            self.btns[i].clicked.connect(self.appendValues)
+
+        for i in range(len(self.oprs)):
+            self.oprs[i].clicked.connect(self.appendOperators)
+
+    def appendValues(self):
+        self.expression = ''
+        try:
+            btn = self.sender()
+            x = btn.text()
+            text = self.lineEdit.text()
+            text += x
+            self.lineEdit.setText(text)
+            self.expression = self.lineEdit.text()
+        except BaseException as ex:
+            print(ex)
+
+    def appendOperators(self):
+        try:
+            btn = self.sender()
+            x = btn.text()
+            oprs = ['+','-','/','*']
+            text = self.lineEdit.text()
+            text += x
+            # print(text[-1])
+
+            for i in range(len(oprs)):
+                if oprs[i] == text[-1] and x in oprs:
+                    text = self.expression + x
+                    break
+
+            self.lineEdit.setText(text)
+
+        except BaseException as ex:
+            print(ex)
+
+    def evaluate(self):
+        result = eval(self.expression)
+        self.lineEdit.setText(str(result))
 
 if __name__ == "__main__":
     import sys
