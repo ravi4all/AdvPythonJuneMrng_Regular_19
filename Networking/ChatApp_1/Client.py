@@ -3,7 +3,7 @@
 import socket
  
 def Main():
-        host = '192.168.1.108'
+        host = 'localhost'
         port = 80
          
         mySocket = socket.socket()
