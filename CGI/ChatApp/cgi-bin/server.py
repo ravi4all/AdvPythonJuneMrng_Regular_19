@@ -4,14 +4,14 @@ import traceback
 from threading import Thread
 
 def main():
-    start_server()
+    Thread(target=start_server).start()
 
 def start_server():
     #host - your ip address
     #cmd - ipconfig
     host = "127.0.0.1"
     #port - 80
-    port = 8888
+    port = 8989
 
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Socket created")
@@ -40,20 +40,18 @@ def start_server():
 
 def client_thread(connection, ip, port, max_buffer_size = 5120):
     is_active = True
+    client_input = receive_input(connection, max_buffer_size)
 
-    while is_active:
-        client_input = receive_input(connection, max_buffer_size)
-
-        if "--QUIT--" in client_input:
-            print("Client is requesting to quit")
-            connection.close()
-            print("Connection " + ip + ":" + port + " closed")
-            is_active = False
-        else:
-            print("Processed result: {}".format(client_input))
-            msg = input("-> ")
-            connection.sendall(msg.encode("utf8"))
-
+    if "--QUIT--" in client_input:
+        print("Client is requesting to quit")
+        connection.close()
+        print("Connection " + ip + ":" + port + " closed")
+        is_active = False
+    else:
+        print("Processed result: {}".format(client_input))
+        # msg = input("-> ")
+        msg = "msg received"
+        connection.sendall(msg.encode("utf8"))
 
 def receive_input(connection, max_buffer_size):
     client_input = connection.recv(max_buffer_size)
